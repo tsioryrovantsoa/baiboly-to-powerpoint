@@ -10,7 +10,8 @@ from pptx.dml.color import RGBColor
 
 
 def creer(idBoky, toko, andininydeb, andininyfin):
-    pres = Presentation("template.pptx")
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+    pres = Presentation(os.path.join(current_directory, "template.pptx"))
     slide0 = pres.slides[0]
     title_shapes = [shape for shape in slide0.shapes if shape.has_text_frame]
     title = [
@@ -26,7 +27,8 @@ def creer(idBoky, toko, andininydeb, andininyfin):
     for row in rows:
         create_verset_slides(row, pres)
 
-    fichier = "test.pptx"
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+    fichier = os.path.join(current_directory, "test.pptx")
     pres.save(fichier)
     return fichier
 
@@ -67,7 +69,7 @@ def create_verset_slides(row, pres):
     if len(verset.split()) > 13:
         # ponctuations pour separer des slides par ordre de priorite
         ponctuations = [",", ";", "!", "?"]
-        #division = 0
+        # division = 0
         zaraina = 0
 
         for ponctuation in ponctuations:
@@ -76,11 +78,10 @@ def create_verset_slides(row, pres):
                 # compter le nombre de ponctuation dans le verset et stoper le boucle
                 zaraina = verset.count(ponctuation)
                 break
-        
-        #verset diviser par le ponctualion par le division
+
+        # verset diviser par le ponctualion par le division
         # versetoff = verset.split(ponctuation, zaraina)
         versetoff = split_verse(verset, ponctuations)
-        print(versetoff)
         # numero de verset
         base_text = str(row[0])
 
@@ -95,7 +96,7 @@ def create_verset_slides(row, pres):
                 text = f"{base_text} {x}" if i == 0 else x
                 # propriete du slide : slide, text, le taille de police
                 set_slide_properties(slide, text, size=Pont_size(x))
-    #si nombre inferieur a 13
+    # si nombre inferieur a 13
     else:
         # creation de nouvelle diapositive
         slide = pres.slides.add_slide(first_slide_layout)
@@ -103,10 +104,11 @@ def create_verset_slides(row, pres):
         text = f"{row[0]} {row[1]}"
         # propriete du slide : slide, text, le taille de police
         set_slide_properties(slide, text, size=Pont_size(row[1]))
-        
+
+
 def split_verse(verset, ponctuations):
     parts = []
-    
+
     # Initialise le premier morceau avec une chaîne vide
     current_part = ""
 
@@ -129,6 +131,7 @@ def split_verse(verset, ponctuations):
 
     return parts
 
+
 def set_slide_properties(slide, text, size):
     # ajouter text dans le diapo
     slide.shapes.title.text = text
@@ -138,9 +141,11 @@ def set_slide_properties(slide, text, size):
     slide.shapes.title.text_frame.paragraphs[0].font.name = "Helvetica Inserat LT Std"
     slide.shapes.title.text_frame.paragraphs[0].font.size = size
 
+
 def Pont_size(text):
     # Police 72 si nombre de mot dans le texte = 12 si non 80
     return Pt(72) if len(text.split()) == 12 else Pt(80)
+
 
 def openFile(pres):
     fileName = pres

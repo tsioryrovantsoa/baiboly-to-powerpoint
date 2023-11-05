@@ -1,10 +1,12 @@
 import sqlite3
 from sqlite3 import Error
 from tkinter import messagebox
+import os
 
 def create_connection():
     try:
-        conn = sqlite3.connect("bible_baiboly.sqlite")
+        current_directory = os.path.dirname(os.path.abspath(__file__))
+        conn = sqlite3.connect(os.path.join(current_directory, "bible_baiboly.sqlite"))
         return conn
     except Error as e:
         print(e)
@@ -38,7 +40,6 @@ def getBoky(conn, idBoky, toko, andininydeb, andininyfin):
         valiny = f"{tokohafa} \n{toko} : {andininydeb}"
     else:
         valiny = f"{tokohafa} \n{toko} : {andininydeb} - {andininyfin}"
-    print(valiny)
     return valiny
 
 # def main():
