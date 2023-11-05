@@ -5,6 +5,7 @@ from presentation import *
 from tkinter.ttk import *
 from PIL import ImageTk, Image
 from tkinter import messagebox
+from function import allBoky
 
 def main():
     root = tk.Tk()
