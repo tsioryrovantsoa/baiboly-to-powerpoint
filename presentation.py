@@ -57,42 +57,89 @@ def format_title(slide0):
 
 
 def create_verset_slides(row, pres):
+    # row[0] : toko, row[1] : verset
     verset = row[1]
+    # modele 5 du nouvelle diapositive
     first_slide_layout = pres.slide_layouts[5]
 
+    # compter le nombre de mot verset.split()
+    # si nombre de mot superieur a 13
     if len(verset.split()) > 13:
+        # ponctuations pour separer des slides par ordre de priorite
         ponctuations = [",", ";", "!", "?"]
+        #division = 0
         zaraina = 0
 
         for ponctuation in ponctuations:
+            # si ponction present dans le verset
             if ponctuation in verset:
+                # compter le nombre de ponctuation dans le verset et stoper le boucle
                 zaraina = verset.count(ponctuation)
                 break
-
-        versetoff = verset.split(ponctuation, zaraina)
+        
+        #verset diviser par le ponctualion par le division
+        # versetoff = verset.split(ponctuation, zaraina)
+        versetoff = split_verse(verset, ponctuations)
+        print(versetoff)
+        # numero de verset
         base_text = str(row[0])
 
         for i, x in enumerate(versetoff):
+            # i l'indice du versetoff
+            # x le versetoff
+            # si verset non vide
             if x:
+                # creation de nouvelle diapositive
                 slide = pres.slides.add_slide(first_slide_layout)
+                # text = base_text + verset si debut de diapo c'est a dire indice 0 si non text = verset
                 text = f"{base_text} {x}" if i == 0 else x
+                # propriete du slide : slide, text, le taille de police
                 set_slide_properties(slide, text, size=Pont_size(x))
+    #si nombre inferieur a 13
     else:
+        # creation de nouvelle diapositive
         slide = pres.slides.add_slide(first_slide_layout)
+        # text = base_text + verset
         text = f"{row[0]} {row[1]}"
+        # propriete du slide : slide, text, le taille de police
         set_slide_properties(slide, text, size=Pont_size(row[1]))
+        
+def split_verse(verset, ponctuations):
+    parts = []
+    
+    # Initialise le premier morceau avec une chaîne vide
+    current_part = ""
+
+    # Parcourt chaque caractère du verset
+    for char in verset:
+        # Si le caractère est une ponctuation à diviser
+        if char in ponctuations:
+            # Ajoute le caractère à la fin du morceau actuel
+            current_part += char
+            # Ajoute le morceau actuel à la liste des parties
+            parts.append(current_part)
+            # Réinitialise le morceau actuel à une chaîne vide
+            current_part = ""
+        else:
+            # Ajoute le caractère au morceau actuel
+            current_part += char
+
+    # Ajoute le dernier morceau (après la dernière ponctuation)
+    parts.append(current_part)
+
+    return parts
 
 def set_slide_properties(slide, text, size):
+    # ajouter text dans le diapo
     slide.shapes.title.text = text
     slide.shapes.title.width = Inches(10)
-    slide.shapes.title.height = Inches(2.28)
-    slide.shapes.title.text_frame.auto_size = MSO_AUTO_SIZE.SHAPE_TO_FIT_TEXT
-    slide.shapes.title.text_frame.margin_bottom = Inches(-5.1)
+    slide.shapes.title.height = Inches(7.5)
     slide.shapes.title.text_frame.paragraphs[0].alignment = PP_ALIGN.CENTER
     slide.shapes.title.text_frame.paragraphs[0].font.name = "Helvetica Inserat LT Std"
     slide.shapes.title.text_frame.paragraphs[0].font.size = size
 
 def Pont_size(text):
+    # Police 72 si nombre de mot dans le texte = 12 si non 80
     return Pt(72) if len(text.split()) == 12 else Pt(80)
 
 def openFile(pres):
