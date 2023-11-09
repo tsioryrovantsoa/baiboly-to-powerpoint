@@ -22,7 +22,7 @@ def getVerser(conn, idBoky, toko, andininydeb, andininyfin):
     cur.execute("SELECT position, text FROM texts WHERE chapter_id=? AND chapter_num=? AND position BETWEEN ? AND ?", (idBoky, toko, andininydeb, andininyfin))
     rows = cur.fetchall()
     if not rows:
-        messagebox.showerror("Baiboly to PowerPoint", "Hamarino tsara ny zavatra ampidirinao.\nMisaotra!")
+        raise Exception("Hamarino tsara ny zavatra ampidirinao.\nMisaotra!")
     return rows
 
 def getBoky(conn, idBoky, toko, andininydeb, andininyfin):

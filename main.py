@@ -7,15 +7,16 @@ from PIL import ImageTk, Image
 from tkinter import messagebox
 from function import allBoky
 
+
 def main():
     root = tk.Tk()
-    root.geometry('350x250')
+    root.geometry("350x250")
     root.title("Baiboly to PowerPoint")
-    root.iconbitmap(r'baiboly.ico')
+    root.iconbitmap(r"baiboly.ico")
 
     labelChoix = tk.Label(root, text="FJKM Andavamamba Kristy Velona")
     labelChoix.pack()
-    titre = tk.Label(root, text="BAIBOLY", font=('Averta-ExtraBoldItalic', 25))
+    titre = tk.Label(root, text="BAIBOLY", font=("Averta-ExtraBoldItalic", 25))
     titre.pack()
     root.resizable(False, False)
 
@@ -39,17 +40,19 @@ def main():
     entre_3.place(x=180, y=180)
 
     def sokafy():
-        select = listeBoky.get()
-        ato = Boky.index(select)
-        id = idBoky[ato]
-        toko_tena = entre_1.get()
-        andininydeb_tena = entre_2.get()
-        andininyfin_tena = entre_3.get()
-        if toko_tena == '' or andininydeb_tena == '' or andininyfin_tena == '':
-            messagebox.showerror("Baiboly to PowerPoint", "Hamarino tsara ny zavatra ampidirinao.\nMisaotra!")
-        else:
+        try:
+            select = listeBoky.get()
+            ato = Boky.index(select)
+            id = idBoky[ato]
+            toko_tena = entre_1.get()
+            andininydeb_tena = entre_2.get()
+            andininyfin_tena = entre_3.get()
+            if toko_tena == "" or andininydeb_tena == "" or andininyfin_tena == "":
+                raise Exception("Hamarino tsara ny zavatra ampidirinao.\nMisaotra!")
             fichier = creer(str(id), toko_tena, andininydeb_tena, andininyfin_tena)
             openFile(fichier)
+        except Exception as e:
+            messagebox.showerror("Baiboly to PowerPoint", str(e))
 
     button = Button(root, text="Sokafy", style="W.TButton", width=15, command=sokafy)
     button.place(x=120, y=215)
@@ -61,5 +64,6 @@ def main():
 
     root.mainloop()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
