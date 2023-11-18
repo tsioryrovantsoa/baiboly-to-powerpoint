@@ -58,7 +58,7 @@ def main():
     button.place(x=120, y=215)
 
     listeBoky = ttk.Combobox(root, state="readonly", values=Boky)
-    listeBoky.current(18)
+    listeBoky.current(61)
     listeBoky.place(x=100, y=90)
     conn.close()
 

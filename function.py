@@ -14,7 +14,7 @@ def create_connection():
 
 def allBoky(conn):
     cur = conn.cursor()
-    cur.execute("SELECT _id, title FROM chapters")
+    cur.execute("SELECT _id, title FROM chapters ORDER BY title")
     return cur.fetchall()
 
 def getVerser(conn, idBoky, toko, andininydeb, andininyfin):

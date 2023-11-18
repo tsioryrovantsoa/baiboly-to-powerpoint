@@ -10,5 +10,5 @@ if len(sys.argv) < 2:
 # Utiliser os.path.abspath pour normaliser le chemin d'accès
 file_path = os.path.abspath(" ".join(sys.argv[1:]))
 
-# Ouvrir le fichier PowerPoint avec subprocess
-subprocess.run(["start", "", file_path], shell=True)
+# Lancer le fichier PowerPoint en arrière-plan sans bloquer le script Python
+subprocess.Popen(["start", "", file_path], shell=True)
