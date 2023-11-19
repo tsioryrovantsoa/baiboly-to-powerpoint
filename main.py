@@ -8,6 +8,24 @@ from tkinter import messagebox
 from function import allBoky
 
 
+def on_key_release(event):
+    """
+    Fonction pour capturer les frappes clavier lors de la sélection des options dans la Combobox
+    et sélectionner automatiquement l'élément correspondant dans la Combobox.
+    """
+    current_value = event.char.lower()
+    if current_value.isalpha() or current_value in ['1', '2', '3']:
+        current_index = listeBoky.current()
+        next_index = (
+            current_index + 1 if current_index < len(listeBoky["values"]) - 1 else 0
+        )
+        for i, value in enumerate(
+            listeBoky["values"][next_index:] + listeBoky["values"][:next_index]
+        ):
+            if value.lower().startswith(current_value):
+                listeBoky.current((i + next_index) % len(listeBoky["values"]))
+                break
+
 def main():
     root = tk.Tk()
     root.geometry("350x250")
@@ -57,9 +75,12 @@ def main():
     button = Button(root, text="Sokafy", style="W.TButton", width=15, command=sokafy)
     button.place(x=120, y=215)
 
+    global listeBoky
     listeBoky = ttk.Combobox(root, state="readonly", values=Boky)
     listeBoky.current(61)
     listeBoky.place(x=100, y=90)
+    listeBoky.bind("<KeyRelease>", on_key_release)
+    listeBoky.focus_set()
     conn.close()
 
     root.mainloop()
