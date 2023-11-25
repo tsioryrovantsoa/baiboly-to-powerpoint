@@ -2,11 +2,13 @@ import sqlite3
 from sqlite3 import Error
 from tkinter import messagebox
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def create_connection():
     try:
-        current_directory = os.path.dirname(os.path.abspath(__file__))
-        conn = sqlite3.connect(os.path.join(current_directory, "bible_baiboly.sqlite"))
+        conn = sqlite3.connect(os.getenv("DB_PATH"))
         return conn
     except Error as e:
         print(e)

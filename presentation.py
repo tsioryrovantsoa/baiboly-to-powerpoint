@@ -7,11 +7,12 @@ from pptx.enum.shapes import PP_PLACEHOLDER
 from pptx.util import Inches
 from pptx.enum.text import MSO_AUTO_SIZE
 from pptx.dml.color import RGBColor
+from dotenv import load_dotenv
 
+load_dotenv()
 
 def creer(idBoky, toko, andininydeb, andininyfin):
-    current_directory = os.path.dirname(os.path.abspath(__file__))
-    pres = Presentation(os.path.join(current_directory, "template.pptx"))
+    pres = Presentation(os.getenv("TEMPLATE_PATH"))
     slide0 = pres.slides[0]
     title_shapes = [shape for shape in slide0.shapes if shape.has_text_frame]
     title = [
@@ -27,8 +28,7 @@ def creer(idBoky, toko, andininydeb, andininyfin):
     for row in rows:
         create_verset_slides(row, pres)
 
-    current_directory = os.path.dirname(os.path.abspath(__file__))
-    fichier = os.path.join(current_directory, "test.pptx")
+    fichier = os.getenv("TEST_PATH")
     pres.save(fichier)
     return fichier
 
