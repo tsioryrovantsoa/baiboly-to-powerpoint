@@ -2,4 +2,6 @@ To add an icon to your .exe file to do:
 pyinstaller -i [iconfile] [file_name]  . 
 Making sure that your icon file is in the same directory that your cmd is in.
 
->pyinstaller --onefile --windowed --icon=baiboly.ico --distpath . main.py
+pyinstaller --onefile --windowed --icon=baiboly.ico --distpath . main.py
+
+pip install -r requirements.txt
