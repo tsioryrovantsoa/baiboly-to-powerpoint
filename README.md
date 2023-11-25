@@ -1,6 +1,9 @@
 # baiboly-to-powerpoint
 Mamadika ny Baiboly ho lasa PowerPoint
 
+# python version
+Python 3.11.5
+
 # dependance
 altgraph==0.17.4
 lxml==4.9.3
