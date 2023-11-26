@@ -82,6 +82,9 @@ def main():
     listeBoky.bind("<KeyRelease>", on_key_release)
     listeBoky.focus_set()
     conn.close()
+    
+    version_label = tk.Label(root, text="v1.1-nov2023") 
+    version_label.place(relx=1, rely=1, anchor='se')
 
     root.mainloop()
 
