@@ -54,8 +54,8 @@ def format_title(slide0):
     title_para2.font.name = "Alégre Sans NC"
     title_para2.font.size = Pt(185)
     title_para.line_spacing = Pt(12)
-    title_para.font.color.rgb = RGBColor(255, 255, 0)
-    title_para2.font.color.rgb = RGBColor(255, 255, 0)
+    title_para.font.color.rgb = RGBColor(255, 255, 255)
+    title_para2.font.color.rgb = RGBColor(255, 255, 255)
 
 
 def create_verset_slides(row, pres):
